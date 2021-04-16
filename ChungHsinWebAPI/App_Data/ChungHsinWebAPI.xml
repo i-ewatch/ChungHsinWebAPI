@@ -729,7 +729,7 @@
         </member>
         <member name="P:ChungHsinWebAPI.Models.Receive.ReceiveNo">
             <summary>
-            AI編號
+            接收編號
             </summary>
         </member>
         <member name="P:ChungHsinWebAPI.Models.Receive.data_array">
@@ -749,7 +749,7 @@
         </member>
         <member name="P:ChungHsinWebAPI.Models.ReceiveData.RecNo">
             <summary>
-            AI編號
+            接收編號
             </summary>
         </member>
         <member name="P:ChungHsinWebAPI.Models.ReceiveData.Ai">

@@ -27,7 +27,7 @@ namespace ChungHsinWebAPI.Models
         /// </summary>
         public string CaseNo { get; set; }
         /// <summary>
-        /// AI編號
+        /// 接收編號
         /// </summary>
         public int ReceiveNo { get; set; }
         /// <summary>
