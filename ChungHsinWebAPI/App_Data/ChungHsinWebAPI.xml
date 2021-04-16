@@ -1,0 +1,1587 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ChungHsinWebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:ChungHsinWebAPI.Controllers.CHReceiveController">
+            <summary>
+            冰水主機接收
+            </summary>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.CHReceiveController.PostRecive(ChungHsinWebAPI.Models.ReceiveData)">
+            <summary>
+            接收數值
+            </summary>
+            <param name="receiveData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ChungHsinWebAPI.Controllers.SearchDataController">
+            <summary>
+            查詢資料
+            </summary>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.SearchDataController.GetRecive_Log(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢Receive_Log
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.SearchDataController.GetAI64_Log(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢AI64_Log
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.SearchDataController.GetState_Log(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢State_Log
+            </summary>
+             <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.SearchDataController.GetAI64_Web(System.String,System.Int32)">
+            <summary>
+            查詢AI64_Web
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Controllers.SearchDataController.GetState_Web(System.String,System.Int32)">
+            <summary>
+            查詢State_Web
+            </summary>
+             <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <returns></returns>
+        </member>
+        <member name="T:ChungHsinWebAPI.Enums.AnalysisTypeEnum">
+            <summary>
+            分析類型
+            </summary>
+        </member>
+        <member name="F:ChungHsinWebAPI.Enums.AnalysisTypeEnum.None">
+            <summary>
+            不解析
+            </summary>
+        </member>
+        <member name="F:ChungHsinWebAPI.Enums.AnalysisTypeEnum.LH">
+            <summary>
+            ( L * 1 ) + ( H * 65536 )
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Enums.DeviceTypeEnum">
+            <summary>
+            設備類型
+            </summary>
+        </member>
+        <member name="F:ChungHsinWebAPI.Enums.DeviceTypeEnum.RT80">
+            <summary>
+            80RT冰水主機
+            </summary>
+        </member>
+        <member name="F:ChungHsinWebAPI.Enums.DeviceTypeEnum.RT40_50_60">
+            <summary>
+            40-50-60RT冰水主機
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Methods.SQLMethod">
+            <summary>
+            資料庫方法
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Methods.SQLMethod.Receive_Procedure_ErrorStr">
+            <summary>
+            LOG錯誤字串
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Methods.SQLMethod.Value_Log_Insert_ErrorStr">
+            <summary>
+            數值錯誤字串
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Methods.SQLMethod.State_Log_Insert_ErrorStr">
+            <summary>
+            狀態錯誤字串
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Methods.SQLMethod.MathClass">
+            <summary>
+            數學公式
+            </summary>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Receive_Procedure(ChungHsinWebAPI.Models.ReceiveData)">
+            <summary>
+            紀錄Log
+            </summary>
+            <param name="receiveData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Value_Log_Insert(ChungHsinWebAPI.Models.ReceiveData)">
+            <summary>
+            更新案場數值歷史資料與網頁
+            </summary>
+            <param name="receiveData"></param>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.State_Log_Insert(ChungHsinWebAPI.Models.ReceiveData)">
+            <summary>
+            更新案場狀態歷史資料與網頁
+            </summary>
+            <param name="receiveData"></param>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Search_Receive_Log(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢Receive_Log
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Search_AI64Log(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢AI64_Log
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Search_StateLog(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            查詢State_Log
+            </summary>
+             <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <param name="StartTime">起始時間</param>
+            <param name="EndTime">結束時間</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Search_AI64Web(System.String,System.Int32)">
+            <summary>
+            查詢AI64_Web
+            </summary>
+            <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.Search_StateWeb(System.String,System.Int32)">
+            <summary>
+            查詢State_Web
+            </summary>
+             <param name="CaseNo">案場編號</param>
+            <param name="ReceiveNo">接收編號</param>
+            <returns></returns>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.AI64">
+            <summary>
+            AI64功能
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.ttime">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.ReceiveNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai1">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai2">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai3">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai4">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai5">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai6">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai7">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai8">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai9">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai10">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai11">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai12">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai13">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai14">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai15">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai16">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai17">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai18">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai19">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai20">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai21">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai22">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai23">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai24">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai25">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai26">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai27">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai28">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai29">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai30">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai31">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai32">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai33">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai34">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai35">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai36">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai37">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai38">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai39">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai40">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai41">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai42">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai43">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai44">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai45">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai46">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai47">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai48">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai49">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai50">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai51">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai52">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai53">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai54">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai55">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai56">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai57">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai58">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai59">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai60">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai61">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai62">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai63">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AI64.Ai64">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.AiConfig">
+            <summary>
+            AI資訊
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.DeviceTypeEnum">
+            <summary>
+            設備類型
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.AINo">
+            <summary>
+            數值編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.CharAddress">
+            <summary>
+            陣列位址
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.AIName">
+            <summary>
+            數值名稱
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.AnalysisMothed">
+            <summary>
+            分析方式 0=不解析 ， 1 = LH
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.Ratio">
+            <summary>
+            比值(乘)
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.Aiunit">
+            <summary>
+            單位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.Enum_Array">
+            <summary>
+            (類型名稱)請將每個號碼與名稱輸入並將每個類型用逗號區隔 如:(0=停止,1=啟動)
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.AISetting">
+            <summary>
+            設備AI設定
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.RecevieNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.AINo">
+            <summary>
+            數值編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.CompareFlag">
+            <summary>
+            比較旗標
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.Max">
+            <summary>
+            最大值
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.Min">
+            <summary>
+            最小值
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.CompareType">
+            <summary>
+            紀錄最後發報比較類型 0 = 超過上限,1=正常,2 = 低於下限
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.EnumFlag">
+            <summary>
+            類型旗標
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.AISetting.EnumType">
+            <summary>
+            紀錄最後發報類型
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.CaseSetting">
+            <summary>
+            案場資訊
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.Contacter">
+            <summary>
+            聯絡人
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.Phone">
+            <summary>
+            電話
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.TitleName">
+            <summary>
+            案場名稱
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.Longitude">
+            <summary>
+            經度
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.Latitude">
+            <summary>
+            緯度
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.zoom">
+            <summary>
+            地圖放大倍率
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyTypeEnum">
+            <summary>
+            告警發報類型 0 = 不使用,1 = LineNotify，2 = Telegrambot
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyApi">
+            <summary>
+            告警發報網址  LineNotify不需輸入，Telegrambot API網址
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyToken">
+            <summary>
+            告警發報權杖 Line的Token，Telegrambot的Chat_ID
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyFlag">
+            <summary>
+            告警動作旗標
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.HTimeoutSpan">
+            <summary>
+            斷線發報時間(時)
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.MTimeoutSpan">
+            <summary>
+            斷線發報時間(分)
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.CaseSetting.SendTime">
+            <summary>
+            最後發報時間
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive.ttime">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive.ReceiveNo">
+            <summary>
+            AI編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive.data_array">
+            <summary>
+            數值
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.ReceiveData.ttime">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.ReceiveData.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.ReceiveData.RecNo">
+            <summary>
+            AI編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.ReceiveData.Ai">
+            <summary>
+            數值
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.Receive_Log">
+            <summary>
+            接收資料
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.ttime">
+            <summary>
+            時間字串
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.ttimen">
+            <summary>
+            時間格式
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ChungHsinWebAPI.Models.Receive_Log.CaseNo" -->
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.ReceiveNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value1">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value2">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value3">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value4">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value5">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value6">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value7">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value8">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value9">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value10">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value11">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value12">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value13">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value14">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value15">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value16">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value17">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value18">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value19">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value20">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value21">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value22">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value23">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value24">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value25">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value26">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value27">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value28">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value29">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value30">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value31">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value32">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value33">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value34">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value35">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value36">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value37">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value38">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value39">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value40">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value41">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value42">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value43">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value44">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value45">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value46">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value47">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value48">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value49">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value50">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value51">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value52">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value53">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value54">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value55">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value56">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value57">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value58">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value59">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value60">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value61">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value62">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value63">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value64">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value65">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value66">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value67">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value68">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value69">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value70">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value71">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value72">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value73">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value74">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value75">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value76">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value77">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value78">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value79">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value80">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value81">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value82">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value83">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value84">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value85">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value86">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value87">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value88">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value89">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value90">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value91">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value92">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value93">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value94">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value95">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value96">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value97">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value98">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value99">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value100">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value101">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value102">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value103">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value104">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value105">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value106">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value107">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value108">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value109">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value110">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value111">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value112">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value113">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value114">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value115">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value116">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value117">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value118">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value119">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value120">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value121">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value122">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value123">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value124">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value125">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value126">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value127">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.Receive_Log.Value128">
+            <summary>
+            AI點位
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.DeviceTypeEnum">
+            <summary>
+            設備類型
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.ReceiveNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.ReceiveName">
+            <summary>
+            接收名稱
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.NotifyFlag">
+            <summary>
+            告警動作旗標
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.HTimeoutSpan">
+            <summary>
+            斷線發報時間(時)
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.MTimeoutSpan">
+            <summary>
+            斷線發報時間(分)
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.RecevieSetting.SendTime">
+            <summary>
+            最後發報時間
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.State">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.ttime">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.ttimen">
+            <summary>
+            時間字串
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.ReceiveNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.StateNo">
+            <summary>
+            狀態編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.State.state">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.StateConfig">
+            <summary>
+            狀態資訊
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.DeviceTypeEnum">
+            <summary>
+            設備類型
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateNo">
+            <summary>
+            狀態編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.CharAddress">
+            <summary>
+            陣列位址
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateBitAddress">
+            <summary>
+            狀態位元位址
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateName">
+            <summary>
+            狀態名稱
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateFlag">
+            <summary>
+            狀態旗標 0 = DI狀態 ， 1 =DO狀態
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateHigh">
+            <summary>
+            狀態高位元
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateConfig.StateLow">
+            <summary>
+            狀態低位元
+            </summary>
+        </member>
+        <member name="T:ChungHsinWebAPI.Models.StateSetting">
+            <summary>
+            設備狀態設定
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.PK">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.CaseNo">
+            <summary>
+            案場編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.ReceiveNo">
+            <summary>
+            接收編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.StateNo">
+            <summary>
+            狀態編號
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.NotifyFlag">
+            <summary>
+            狀態改變發送旗標
+            </summary>
+        </member>
+        <member name="P:ChungHsinWebAPI.Models.StateSetting.LastStateFlag">
+            <summary>
+            最後狀態 
+            </summary>
+        </member>
+    </members>
+</doc>
