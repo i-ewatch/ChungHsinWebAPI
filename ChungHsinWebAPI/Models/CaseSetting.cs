@@ -58,21 +58,5 @@ namespace ChungHsinWebAPI.Models
         /// 告警發報權杖 Line的Token，Telegrambot的Chat_ID
         /// </summary>
         public string NotifyToken { get; set; }
-        /// <summary>
-        /// 告警動作旗標
-        /// </summary>
-        public bool NotifyFlag { get; set; }
-        /// <summary>
-        /// 斷線發報時間(時)
-        /// </summary>
-        public int HTimeoutSpan { get; set; }
-        /// <summary>
-        /// 斷線發報時間(分)
-        /// </summary>
-        public int MTimeoutSpan { get; set; }
-        /// <summary>
-        /// 最後發報時間
-        /// </summary>
-        public DateTime SendTime { get; set; }
     }
 }
