@@ -46,5 +46,10 @@ namespace ChungHsinWebAPI.Models
         /// (類型名稱)請將每個號碼與名稱輸入並將每個類型用逗號區隔 如:(0=停止,1=啟動)
         /// </summary>
         public string Enum_Array { get; set; }
+        /// <summary>
+        /// 0 = 曲線圖
+        /// 1 = 長條圖(累積用)
+        /// </summary>
+        public int ChartTypeEnum { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using ChungHsinWebAPI.Models;
 using Dapper;
 using MathLibrary;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +20,20 @@ namespace ChungHsinWebAPI.Methods
     /// </summary>
     public class SQLMethod
     {
+        /// <summary>
+        /// 初始建立
+        /// </summary>
+        public SQLMethod()
+        {
+            #region Serilog initial
+            Log.Logger = new LoggerConfiguration()
+                        .WriteTo.Console()
+                        .WriteTo.File($"{AppDomain.CurrentDomain.BaseDirectory}\\bin\\log\\log-.txt",
+                                      rollingInterval: RollingInterval.Day,
+                                      outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                        .CreateLogger();        //宣告Serilog初始化
+            #endregion
+        }
         private string ConnStr = WebConfigurationManager.ConnectionStrings["EwatchDBConnectionString"].ConnectionString.ToString();
         private string DataDB = HttpContext.Current.Application["DB"].ToString();
         private string DataLog = HttpContext.Current.Application["Log"].ToString();
@@ -75,6 +91,7 @@ namespace ChungHsinWebAPI.Methods
                     {
                         data.Ai[i] = 0;
                     }
+                   
                     string InsertLogsql = $"CALL {DataLog}.ReceiveProcedure(@ttime,@CaseNo,@ReceiveNo,@data_array)";
                     var LogCounter = connection.Execute(InsertLogsql, recive);
                     if ((LogCounter / 3) > 0)
@@ -86,7 +103,8 @@ namespace ChungHsinWebAPI.Methods
                     }
                     else
                     {
-                        Receive_Procedure_ErrorStr = ("上傳成功，案場、設備或已上傳未建立");
+                        Log.Information(JsonConvert.SerializeObject(data));
+                        Receive_Procedure_ErrorStr = ("上傳成功，案場未建立、設備已上傳");
                         return 1;
                     }
 
@@ -140,7 +158,27 @@ namespace ChungHsinWebAPI.Methods
                                             {
                                                 case DeviceTypeEnum.RT80:
                                                     {
-                                                        if (Aiconfig[i].CharAddress == 33)//KWH
+                                                        //if (Aiconfig[i].CharAddress == 34)//KWH
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 90)//總時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if(Aiconfig[i].CharAddress == 92)//1機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 96)//2機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        if (Aiconfig[i].ChartTypeEnum == 1)
                                                         {
                                                             string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
                                                             connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
@@ -148,6 +186,43 @@ namespace ChungHsinWebAPI.Methods
                                                     }
                                                     break;
                                                 case DeviceTypeEnum.RT40_50_60:
+                                                    {
+                                                        //if (Aiconfig[i].CharAddress == 34)//KWH
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 38)//總時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 55)//1機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 75)//2機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 94)//3機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        //else if (Aiconfig[i].CharAddress == 114)//4機運轉時數
+                                                        //{
+                                                        //    string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                        //    connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        //}
+                                                        if (Aiconfig[i].ChartTypeEnum == 1)
+                                                        {
+                                                            string AIDailyStr = $"CALL {DataLog}.AiDailyProcedure(@ttime,@CaseNo,@ReceiveNo,@AINo,@nowAi)";
+                                                            connection.Execute(AIDailyStr, new { ttime = receiveData.ttime, CaseNo = receiveData.CaseNo, ReceiveNo = receiveData.RecNo, AINo = Aiconfig[i].AINo, nowAi = ai });
+                                                        }
+                                                    }
                                                     break;
                                             }
                                         }

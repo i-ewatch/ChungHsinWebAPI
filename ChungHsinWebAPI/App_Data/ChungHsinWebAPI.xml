@@ -102,6 +102,11 @@
             資料庫方法
             </summary>
         </member>
+        <member name="M:ChungHsinWebAPI.Methods.SQLMethod.#ctor">
+            <summary>
+            初始建立
+            </summary>
+        </member>
         <member name="P:ChungHsinWebAPI.Methods.SQLMethod.Receive_Procedure_ErrorStr">
             <summary>
             LOG錯誤字串
@@ -577,6 +582,12 @@
             (類型名稱)請將每個號碼與名稱輸入並將每個類型用逗號區隔 如:(0=停止,1=啟動)
             </summary>
         </member>
+        <member name="P:ChungHsinWebAPI.Models.AiConfig.ChartTypeEnum">
+            <summary>
+            0 = 曲線圖
+            1 = 長條圖(累積用)
+            </summary>
+        </member>
         <member name="T:ChungHsinWebAPI.Models.AISetting">
             <summary>
             設備AI設定
@@ -695,26 +706,6 @@
         <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyToken">
             <summary>
             告警發報權杖 Line的Token，Telegrambot的Chat_ID
-            </summary>
-        </member>
-        <member name="P:ChungHsinWebAPI.Models.CaseSetting.NotifyFlag">
-            <summary>
-            告警動作旗標
-            </summary>
-        </member>
-        <member name="P:ChungHsinWebAPI.Models.CaseSetting.HTimeoutSpan">
-            <summary>
-            斷線發報時間(時)
-            </summary>
-        </member>
-        <member name="P:ChungHsinWebAPI.Models.CaseSetting.MTimeoutSpan">
-            <summary>
-            斷線發報時間(分)
-            </summary>
-        </member>
-        <member name="P:ChungHsinWebAPI.Models.CaseSetting.SendTime">
-            <summary>
-            最後發報時間
             </summary>
         </member>
         <member name="P:ChungHsinWebAPI.Models.Receive.ttime">
